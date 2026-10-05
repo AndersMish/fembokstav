@@ -1,0 +1,19 @@
+Fembokstav – lisensnotat
+========================
+
+Spillkode (HTML, CSS, JavaScript utenom ordlistene)
+---------------------------------------------------
+Fri bruk. Du kan kopiere, endre og distribuere spillkoden.
+
+Ordlister (js/wordlists.js, words/answers.json, words/guesses.json)
+------------------------------------------------------------------
+Basert på Norsk ordbank – bokmål 2005 (oppdatering 2022-02-01).
+
+Lisens: Creative Commons Attribution 4.0 International (CC-BY 4.0)
+https://creativecommons.org/licenses/by/4.0/
+
+Opprinnelig datasett: Nasjonalbiblioteket / UiO
+Bearbeidet wordlist: https://github.com/Ondkloss/norwegian-wordlist
+
+Ved videre bruk av ordlistene må du creditere Norsk ordbank / Nasjonalbiblioteket
+og lenke til CC-BY 4.0-lisensen (se også words/ATTRIBUTION.txt).

@@ -1,0 +1,12 @@
+Ordlister for Fembokstav
+===================
+
+Kilde: Norsk ordbank – bokmål 2005 (oppdatering 2022-02-01)
+Lisens: Creative Commons Attribution 4.0 International (CC-BY 4.0)
+Opprinnelig datasett: Nasjonalbiblioteket / UiO
+Bearbeidet wordlist: https://github.com/Ondkloss/norwegian-wordlist
+
+answers.json  – kuratert utvalg (~800) egnet som dagsord / øvingsfasit
+guesses.json  – alle rene 5-bokstavsord (a–zæøå) fra ordbanken (~5096)
+
+js/wordlists.js inneholder samme data for lasting i nettleseren.

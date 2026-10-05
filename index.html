@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0e0f12" />
+  <meta name="description" content="Fembokstav – det norske ordspillet. Gjett dagens 5-bokstavsord!" />
+  <title>Fembokstav – Norsk Wordle</title>
+  <link rel="icon" href="assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="header">
+      <button type="button" class="icon-btn" id="btn-help" aria-label="Hvordan spille" title="Hjelp">
+        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.75"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.7 2.2c-.7.4-1.2 1-1.2 1.8V14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/><circle cx="12" cy="17" r="1" fill="currentColor"/></svg>
+      </button>
+      <div class="brand">
+        <img src="assets/logo.png" alt="" class="brand-logo" width="28" height="28" />
+        <h1>Fembokstav</h1>
+      </div>
+      <div class="header-actions">
+        <button type="button" class="icon-btn" id="btn-stats" aria-label="Statistikk" title="Statistikk">
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
+        </button>
+        <button type="button" class="icon-btn" id="btn-settings" aria-label="Innstillinger" title="Innstillinger">
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" fill="none" stroke="currentColor" stroke-width="1.75"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9c.2.6.7 1 1.5 1.1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+    <main class="board-wrap">
+      <div id="board" class="board" aria-label="Spillbrett"></div>
+    </main>
+
+    <div class="mode-bar">
+      <span id="mode-label" class="mode-label">Dagens ord</span>
+      <button type="button" class="text-btn" id="btn-practice">Øvingsmodus</button>
+    </div>
+
+    <div id="keyboard" class="keyboard" aria-label="Tastatur"></div>
+  </div>
+
+  <!-- Help modal -->
+  <div class="modal" id="modal-help" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card" role="dialog" aria-labelledby="help-title">
+      <button type="button" class="modal-close" data-close aria-label="Lukk">×</button>
+      <h2 id="help-title">Hvordan spille</h2>
+      <p>Gjett det norske <strong>5-bokstavsordet</strong> på <strong>6 forsøk</strong>.</p>
+      <p>Hvert gjett må være et gyldig norsk ord. Trykk Enter for å sjekke.</p>
+      <div class="examples">
+        <div class="example-row">
+          <span class="tile correct">S</span><span class="tile">K</span><span class="tile">O</span><span class="tile">L</span><span class="tile">E</span>
+          <span class="example-text"><strong>S</strong> er i ordet og på riktig plass.</span>
+        </div>
+        <div class="example-row">
+          <span class="tile">V</span><span class="tile present">E</span><span class="tile">R</span><span class="tile">D</span><span class="tile">E</span>
+          <span class="example-text"><strong>E</strong> er i ordet, men på feil plass.</span>
+        </div>
+        <div class="example-row">
+          <span class="tile">H</span><span class="tile">U</span><span class="tile absent">S</span><span class="tile">K</span><span class="tile">E</span>
+          <span class="example-text"><strong>S</strong> er ikke i ordet.</span>
+        </div>
+      </div>
+      <p class="muted">Et nytt ord hver dag (Europe/Oslo). Eller spill øvingsmodus når du vil.</p>
+      <p class="credit">Laget for AndersMish · Ord fra Norsk ordbank (CC-BY 4.0)</p>
+    </div>
+  </div>
+
+  <!-- Stats modal -->
+  <div class="modal" id="modal-stats" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card" role="dialog" aria-labelledby="stats-title">
+      <button type="button" class="modal-close" data-close aria-label="Lukk">×</button>
+      <h2 id="stats-title">Statistikk</h2>
+      <div class="stats-grid">
+        <div class="stat"><div class="stat-n" id="stat-played">0</div><div class="stat-l">Spillt</div></div>
+        <div class="stat"><div class="stat-n" id="stat-winpct">0</div><div class="stat-l">Seire %</div></div>
+        <div class="stat"><div class="stat-n" id="stat-streak">0</div><div class="stat-l">Streak</div></div>
+        <div class="stat"><div class="stat-n" id="stat-maxstreak">0</div><div class="stat-l">Maks</div></div>
+      </div>
+      <h3>Fordeling av gjett</h3>
+      <div id="dist" class="dist"></div>
+      <div id="share-area" class="share-area" hidden>
+        <p id="result-msg" class="result-msg"></p>
+        <button type="button" class="primary-btn" id="btn-share">Del resultat</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings modal -->
+  <div class="modal" id="modal-settings" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card" role="dialog" aria-labelledby="settings-title">
+      <button type="button" class="modal-close" data-close aria-label="Lukk">×</button>
+      <h2 id="settings-title">Innstillinger</h2>
+      <label class="toggle-row">
+        <span>
+          <strong>Hard modus</strong>
+          <small>Avslørte hint må brukes i senere gjett</small>
+        </span>
+        <input type="checkbox" id="toggle-hard" />
+      </label>
+      <label class="toggle-row">
+        <span>
+          <strong>Øvingsmodus</strong>
+          <small>Tilfeldig ord – teller ikke i statistikken</small>
+        </span>
+        <input type="checkbox" id="toggle-practice" />
+      </label>
+      <p class="muted small">Dagens ord er det samme for alle (tidssone Europe/Oslo).</p>
+    </div>
+  </div>
+
+  <script src="js/wordlists.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
